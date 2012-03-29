@@ -7,6 +7,9 @@ elearn is a very simple flashcard-based e-learning system for the command line. 
 In the following is an example of an interaction between the program and the user. 
 
 <pre>
+zsh% ghc elearn.hs
+zsh% ./elearn stacks/human-computer-interaction.stack
+
 Question: What are the main components of HCDP?
 $ Produce Designs User Study
 
