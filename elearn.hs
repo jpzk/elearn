@@ -36,10 +36,11 @@ answer = \(question, answer) -> answer
 fitness :: String -> Answer -> Score 
 fitness input answer = equal / amountAnswer
     where 
-        equal = fromIntegral (equalWords answerS inputS) :: Float
-        amountAnswer = fromIntegral (length answerS) :: Float
-        answerS = map toUppercaseWord (splitWords answer)
-        inputS = map toUppercaseWord (splitWords input)
+        equal = conv (equalWords answerS inputS) :: Float
+        amountAnswer = conv (length answerS) :: Float
+        answerS = map toUpperWord (splitWords answer)
+        inputS = map toUpperWord (splitWords input)
+        conv = fromIntegral
 
 equalWords :: [Word] -> [Word] -> Int
 equalWords wlist1 wlist2 = length (filter equal combinations)
@@ -60,13 +61,14 @@ giveAnswer answer = do
 
 feedback :: Score -> IO () 
 feedback score
-    | score > 0.90 = putStrLn ("Correct, scored " ++ show score)
-    | score > 0.75 = putStrLn ("Almost correct, scored " ++ show score)
-    | score >= 0.5 = putStrLn ("Nice try, scored " ++ show score)
-    | score < 0.5 = putStrLn ("Try harder, scored " ++ show score)
+    | score > 0.90 = putStrLn ("Correct" ++ scoreMsg)
+    | score > 0.75 = putStrLn ("Almost correct" ++ scoreMsg)
+    | score >= 0.5 = putStrLn ("Nice try" ++ scoreMsg)
+    | score < 0.5 = putStrLn ("Try harder" ++ scoreMsg)
+    where scoreMsg = ", scored " ++ show score
 
-showCumulativeScore :: Score -> IO ()
-showCumulativeScore score = putStrLn ("Total score: " ++ show score)
+showTotalScore :: Score -> IO ()
+showTotalScore score = putStrLn ("Total score: " ++ show score)
 
 asker :: Score -> Stack -> IO Stack
 asker score [] = return []
@@ -75,7 +77,7 @@ asker score (x:xs) = do
     putStrLn ""
     feedback (fitness input (answer x))
     giveAnswer (answer x)
-    showCumulativeScore (score + (fitness input (answer x )))
+    showTotalScore (score + (fitness input (answer x)))
     asker (score + (fitness input (answer x))) xs
     
 main = do
@@ -88,8 +90,8 @@ main = do
 whitespace :: [Char]
 whitespace = ['\n', '\t', ',', ' ']
 
-toUppercaseWord :: Word -> Word
-toUppercaseWord word = map toUpper word
+toUpperWord :: Word -> Word
+toUpperWord word = map toUpper word
 
 getWord :: String -> String
 getWord [] = []
