@@ -15,6 +15,8 @@ You should have received a copy of the GNU General Public License
 along with elearn.  If not, see <http://www.gnu.org/licenses/>.
 -}
 
+import Data.Char (toUpper)
+
 type Question = String
 type Score = Float
 type Word = String
@@ -42,8 +44,8 @@ fitness input answer = equal / amountAnswer
     where 
         equal = fromIntegral (equalWords answerS inputS) :: Float
         amountAnswer = fromIntegral (length answerS) :: Float
-        answerS = splitWords answer
-        inputS = splitWords input 
+        answerS = map toUppercaseWord (splitWords answer)
+        inputS = map toUppercaseWord (splitWords input)
 
 equalWords :: [Word] -> [Word] -> Int
 equalWords wlist1 wlist2 = length (filter equal combinations)
@@ -55,6 +57,9 @@ equalWords wlist1 wlist2 = length (filter equal combinations)
 
 whitespace :: [Char]
 whitespace = ['\n', '\t', ',', ' ']
+
+toUppercaseWord :: Word -> Word
+toUppercaseWord word = map toUpper word
 
 getWord :: String -> String
 getWord [] = []
@@ -85,27 +90,28 @@ split st = (getWord st) : (split (dropSpace(dropWord st)))
 
 ask :: Question -> IO String 
 ask question = do
-    putStrLn ("<< Question: " ++ question) 
+    putStrLn ("\nQuestion: " ++ question) 
     getLine 
 
 giveAnswer :: Answer -> IO ()
 giveAnswer answer = do 
-    putStrLn ("<< The right answer is: " ++ answer)
+    putStrLn ("The right answer is: " ++ answer)
 
 feedback :: Score -> IO () 
 feedback score
-    | score > 0.90 = putStrLn ("<< Correct, scored " ++ show score)
-    | score > 0.75 = putStrLn ("<< Almost correct, scored " ++ show score)
-    | score >= 0.5 = putStrLn ("<< Nice try, scored " ++ show score)
-    | score < 0.5 = putStrLn ("<< Try harder, scored " ++ show score)
+    | score > 0.90 = putStrLn ("Correct, scored " ++ show score)
+    | score > 0.75 = putStrLn ("Almost correct, scored " ++ show score)
+    | score >= 0.5 = putStrLn ("Nice try, scored " ++ show score)
+    | score < 0.5 = putStrLn ("Try harder, scored " ++ show score)
 
 showCumulativeScore :: Score -> IO ()
-showCumulativeScore score = putStrLn ("<< Total score: " ++ show score)
+showCumulativeScore score = putStrLn ("Total score: " ++ show score)
 
 asker :: Score -> Database -> IO Database
 asker score [] = return []
 asker score (x:xs) = do
     input <- ask (question x)
+    putStrLn ""
     feedback (fitness input (answer x))
     giveAnswer (answer x)
     showCumulativeScore (score + (fitness input (answer x )))
