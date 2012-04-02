@@ -22,14 +22,10 @@ type Question = String
 type Score = Float
 type Word = String
 type Answer = String
-type Flashcard = (Question, Answer)
 type Stack = [Flashcard]
 
-question :: Flashcard -> Question
-question = \(question, answer) -> question 
-
-answer :: Flashcard -> Answer
-answer = \(question, answer) -> answer 
+data Flashcard = Flashcard 
+    {question :: Question, answer :: Answer}
 
 {- Following functions are defined for fitness quality purpose -}
 
@@ -134,5 +130,5 @@ parseAnswer (x:xs)
     | otherwise = parseAnswer xs
 
 parseFlashcard :: String -> Flashcard 
-parseFlashcard st = (parseQuestion st, parseAnswer st)
+parseFlashcard st = Flashcard (parseQuestion st) (parseAnswer st)
 
