@@ -66,8 +66,8 @@ feedback score
 showTotalScore :: Score -> IO ()
 showTotalScore score = putStrLn ("Total score: " ++ show score)
 
-asker :: Score -> Stack -> IO Stack
-asker score [] = return []
+asker :: Score -> Stack -> IO ()
+asker score [] = return () 
 asker score (x:xs) = do
     input <- ask (question x)
     putStrLn ""
@@ -75,11 +75,17 @@ asker score (x:xs) = do
     giveAnswer (answer x)
     showTotalScore (score + (fitness input (answer x)))
     asker (score + (fitness input (answer x))) xs
-    
+
+handleArgs :: [String] -> IO ()
+handleArgs args  
+    | length args < 1 = putStrLn "./elearn flashcards.stack"
+    | otherwise = do 
+        content <- readFile (head args)
+        asker 0.0 (parseStack content) 
+
 main = do
     args <- getArgs
-    content <- readFile (head args)
-    asker 0.0 (parseStack content) 
+    handleArgs args
 
 {- Following functions are defined for text processing purpose -}
 
