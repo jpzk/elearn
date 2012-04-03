@@ -1,6 +1,6 @@
 # elearn 
 
-elearn is a very simple flashcard-based e-learning system for the command line. It is written in Haskell. After compiling, you can even interpret this program with e.g. ghci, the user is in dialog with the program. The answer of the user is checked word-based with the correct answer. In fact every word which is mentioned by the user and is in the correct answer is a partial correct answer. The overall score for the answer is calculated by matched words divided by the amount of words of the correct answer. Therefore the maximum score for an answer is 1.0. Each score will be cumulated. Happy learning!
+elearn is a very simple flashcard-based e-learning system for the command line. The answer of the user is checked word-based with the correct answer. In fact every word which is mentioned by the user and is in the correct answer is a partial correct answer. The overall score for the answer is calculated by matched words divided by the amount of words of the correct answer. Therefore the maximum score for an answer is 1.0. Each score will be cumulated. Happy learning!
 
 ## Installation 
 
