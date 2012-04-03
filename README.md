@@ -1,22 +1,26 @@
 # elearn 
 
-elearn is a very simple flashcard-based e-learning system for the command line. It is written in Haskell. After compiling, you can even interpret this program with e.g. ghci, the user is in dialog with the program. The answer of the user is checked word-based with the right answer. In fact every word which is mentioned by the user and is in the right answer is a partial correct answer. The overall score for the answer is calculated by matched words divided by the amount of words of the correct answer. Therefore the maximum score for an answer is 1.0. Each score will be cumulated.
+elearn is a very simple flashcard-based e-learning system for the command line. It is written in Haskell. After compiling, you can even interpret this program with e.g. ghci, the user is in dialog with the program. The answer of the user is checked word-based with the correct answer. In fact every word which is mentioned by the user and is in the correct answer is a partial correct answer. The overall score for the answer is calculated by matched words divided by the amount of words of the correct answer. Therefore the maximum score for an answer is 1.0. Each score will be cumulated. Happy learning!
 
-## Example
+## Installation 
 
-In the following is an example of an interaction between the program and the user. 
+At first you have to clone the repository, configure the elearn cabal package and build the cabal package. Here's how you can do it, assuming zsh% is your user-shell. If this is your first haskell compilation it might be possible that cabal is not on your system (install it!).
 
 <pre>
-zsh% ghc elearn.hs
-zsh% ./elearn stacks/human-computer-interaction.stack
-
-Question: What are the main components of HCDP?
-$ Produce Designs User Study
-
-Nice try, scored 0.6666667
-The right answer is: User Study Specification Produce Designs Evaluation
-Total score: 0.6666667
+zsh% git clone git://github.com/jpzk/elearn.git
+zsh% cd elearn
+zsh% cabal install
 </pre>
+
+After configuration, compilation and installing the binary executable is placed in ~/.cabal/bin/elearn. You're now able to elearn a stack by executing the program with a flashcard stack (CSV-file) as program argument. Assuming elearn is cloned to the home directoy one can read the example stack by: 
+
+<pre>
+zsh% ~/.cabal/bin/elearn ~/elearn/stacks/human-computer-interaction.stack
+</pre>
+
+## Adding a new stack
+
+A stack is a simple CSV with question and answer seperated by a semicolon. Store stacks whereever you like and call elearn with the stack path of choice as program argument.  
 
 ## License 
 
