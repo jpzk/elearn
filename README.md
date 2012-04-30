@@ -4,7 +4,7 @@ elearn is a very simple flashcard-based e-learning system for the command line. 
 
 ## Motivation
 
-![studiedlastnight](http://www.ragetrolling.com/var/albums/I%20Studied%20Last%20Night.jpg?m=1320240239)
+![studiedlastnight](http://i.imgur.com/PGnXG.jpg)
 
 
 ## Installation 
